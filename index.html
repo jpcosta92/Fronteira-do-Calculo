@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fronteira do Cálculo, Lda</title>
+
+    <!-- Importando fontes do Google (Montserrat) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+    />
+
+    <!-- Link para o CSS externo -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Inclusão do Leaflet para o mapa -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+
+    <!-- Ícones FontAwesome para telefone e morada -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <nav>
+        <div class="nav-container">
+          <div class="logo">
+            <img src="assets/logo.png" alt="Logo Empresa" />
+          </div>
+          <ul class="menu">
+            <li><a href="#home" class="menu-link">Início</a></li>
+            <li><a href="#services" class="menu-link">Serviços</a></li>
+            <li><a href="#calendar" class="menu-link">Calendário Fiscal</a></li>
+            <li><a href="#contact" class="menu-link">Contactos</a></li>
+          </ul>
+          <div class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Simplificamos a sua Gestão Financeira</h1>
+        <p>Serviços de contabilidade e gestão para empresas</p>
+      </div>
+      <div class="hero-bg"></div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="services" class="services">
+      <h2>Os nossos serviços</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Contabilidade</h3>
+          <p>Gestão e análise financeira para empresas.</p>
+        </div>
+        <div class="card">
+          <h3>Fiscalidade</h3>
+          <p>Planeamento e cumprimento de obrigações fiscais.</p>
+        </div>
+        <div class="card">
+          <h3>Gestão de RH</h3>
+          <p>Processamento salarial e contratos de trabalho.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendário Fiscal -->
+    <section id="calendar" class="calendar">
+      <h2>Calendário Fiscal 2025</h2>
+      <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FLisbon&showPrint=0&showTitle=0&showNav=0&showDate=0&showTz=0&showTabs=0&mode=AGENDA&hl=pt_PT&showCalendars=0&src=OGUyZTM1ZmVkYWZjYWY1OTc0NTFjOTcwMDZhODcwOGRiYmU5YjdlY2NjYjlmOTE2YTkwYjM1MDI0N2E4NGY3NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23A79B8E" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</iframe>
+
+    </section>
+
+    <!-- Contactos -->
+    <section id="contact" class="contact">
+      <h2>Contacte-nos</h2>
+
+      <!-- Informação de Contato -->
+      <div class="contact-info">
+        <p>
+          <i class="fas fa-phone-alt"></i>
+          <a class="contact-text">+351 123 456 789</a>
+        </p>
+        <p>
+          <i class="fas fa-map-marker-alt"></i>
+          <span class="contact-text"
+            >R. Batalha Reis 81, 6300-668 Guarda, Portugal</span
+          >
+        </p>
+      </div>
+
+      <!-- Mapa -->
+      <div id="map" style="width: 100%; height: 300px"></div>
+    </section>
+
+    <!-- Formulário -->
+    <section class="form-section">
+      <h2>Envie-nos uma Mensagem</h2>
+      <form id="contact-form">
+        <input type="text" id="name" placeholder="Nome" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <textarea id="message" placeholder="Mensagem" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <!-- Rodapé -->
+
+    <!-- Botão flutuante de voltar ao topo -->
+    <button id="backToTop" class="back-to-top">
+        <span>&#8593;</span> <!-- Seta apontando para cima -->
+    </button>
+    <footer>
+      <p>
+        &copy; 2025 Fronteira do Cálculo, Lda. Todos os direitos reservados.
+      </p>
+    </footer>
+
+    <!-- Link para o JavaScript -->
+    <script defer src="script.js"></script>
+
+    <!-- Inclusão do Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+      // Mapa com OpenStreetMap
+      var map = L.map("map", {
+        center: [40.5350932399025, -7.26949888054024], // Coordenadas da localização
+        zoom: 15, // Zoom inicial
+        scrollWheelZoom: false, // Desabilitar zoom com o scroll
+      });
+
+      // Adicionar o tile layer do OpenStreetMap
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      // Adicionar marcador na localização
+      var marker = L.marker([40.5350932399025, -7.26949888054024]).addTo(map);
+      marker
+        .bindPopup("<b>Fronteira do Cálculo, Lda</b><br>Localização da empresa")
+        .openPopup();
+    </script>
+  </body>
+</html>
